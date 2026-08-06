@@ -1,0 +1,28 @@
+<resources>
+
+    <style name="CalcButtonBase">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginEnd">12dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/calc_white</item>
+        <item name="android:textSize">26sp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="CalcButtonDarkGray" parent="CalcButtonBase">
+        <item name="android:background">@drawable/circle_dark_gray</item>
+    </style>
+
+    <style name="CalcButtonLightGray" parent="CalcButtonBase">
+        <item name="android:background">@drawable/circle_light_gray</item>
+        <item name="android:textColor">@color/calc_black</item>
+    </style>
+
+    <style name="CalcButtonOrange" parent="CalcButtonBase">
+        <item name="android:background">@drawable/circle_orange</item>
+    </style>
+
+</resources>
