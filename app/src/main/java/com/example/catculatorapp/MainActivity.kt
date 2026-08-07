@@ -1,11 +1,12 @@
 package com.example.catculatorapp
 
-import android.media.MediaPlayer // <--- BAGONG IMPORT
+import android.media.MediaPlayer
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.catculatorapp.databinding.ActivityMainBinding
 import java.text.NumberFormat
 import java.util.Locale
+import android.content.pm.ActivityInfo
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,44 +18,46 @@ class MainActivity : AppCompatActivity() {
     private var isNewInput = true
     private var lockedExpression = ""
 
-    private var mediaPlayer: MediaPlayer? = null // <--- BAGONG VARIABLE PARA SA TUNOG
+    private var mediaPlayer: MediaPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Initialize ang meow sound
-        // SIGURADUHIN NA MAY MEOW.MP3 KA SA RES/RAW FOLDER!
+
         mediaPlayer = MediaPlayer.create(this, R.raw.doorbellcat)
 
         setupButtonClicks()
     }
 
-    // IMPORTANTE: I-release ang media player para hindi mag-leak ng memory
+
     override fun onDestroy() {
         super.onDestroy()
         mediaPlayer?.release()
         mediaPlayer = null
     }
 
-    private fun playMeow() { // <--- BAGONG FUNCTION PARA PATUGTUGIN ANG MEOW
+    private fun playMeow() {
         try {
             val mp = mediaPlayer ?: return
             if (mp.isPlaying) {
-                mp.seekTo(0) // Kung mabilis magpindot, restart agad yung tunog
+                mp.seekTo(0)
             }
             mp.start()
         } catch (e: Exception) {
-            // Huwag mag-crash kung may problema sa tunog
+
             e.printStackTrace()
         }
     }
 
     private fun setupButtonClicks() {
-        // --- Mga Number Buttons ---
+
         binding.btn0.setOnClickListener {
-            playMeow() // <--- TUNOG DITO
+            playMeow()
             onNumberClick("0")
         }
         binding.btn1.setOnClickListener {
@@ -98,7 +101,7 @@ class MainActivity : AppCompatActivity() {
             onDotClick()
         }
 
-        // --- Mga Operator Buttons ---
+
         binding.btnDivide.setOnClickListener {
             playMeow()
             onOperatorClick("÷")
@@ -116,7 +119,7 @@ class MainActivity : AppCompatActivity() {
             onOperatorClick("+")
         }
 
-        // --- Mga Action Buttons ---
+
         binding.btnClear.setOnClickListener {
             playMeow()
             onClearClick()
@@ -177,7 +180,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onBackspaceClick() {
-        // CASE 1: May number na tina-type pa (hal. 1000). Normal na backspace.
+
         if (currentInput.isNotEmpty()) {
             currentInput = currentInput.dropLast(1)
             isNewInput = currentInput.isEmpty()
@@ -185,16 +188,16 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        // CASE 2: Nasa dulo ng operator (hal. "100+"). Burahin yung "+".
-        if (lockedExpression.isNotEmpty() && currentOperator.isNotEmpty()) {
-            val savedNumber = previousValue // I-save muna yung number (yung 100)
 
-            // Burahin yung operator at i-reset yung state
+        if (lockedExpression.isNotEmpty() && currentOperator.isNotEmpty()) {
+            val savedNumber = previousValue
+
+
             lockedExpression = ""
             currentOperator = ""
             previousValue = 0.0
 
-            // Ibalik yung unang number (100) para ma-edit mo ulit kung gusto mo
+
             currentInput = formatResult(savedNumber)
             isNewInput = true
             refreshDisplays()
@@ -225,7 +228,7 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        // i-freeze natin yung buong expression sa taas, at yung result sa baba
+
         binding.tvExpression.text = lockedExpression + formatResult(currentValue)
         binding.tvDisplay.text = "= " + formatResult(result)
 
