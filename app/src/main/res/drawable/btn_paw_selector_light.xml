@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- KAPAG PININDOT: parehong paw effect, sa dark at light mode -->
+    <item android:state_pressed="true"
+        android:drawable="@drawable/paw_pressed" />
+
+    <!-- KAPAG HINDI PININDOT: light gray na ngayon, hindi na dark gray -->
+    <item android:drawable="@drawable/pill_number_light" />
+</selector>

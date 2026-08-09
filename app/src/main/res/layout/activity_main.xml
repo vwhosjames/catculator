@@ -1,262 +1,290 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp"
-    android:paddingTop="16dp"
-    android:paddingBottom="42dp"
-    android:orientation="vertical"
-    android:background="@drawable/cat_bg">
+    android:layout_height="match_parent">
 
-    <!-- EXPRESSION: 5x5 -->
-    <TextView
-        android:id="@+id/tvExpression"
+    <ImageView
+        android:id="@+id/ivBackground"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="bottom|end"
-        android:maxLength="20"
-        android:maxLines="1"
-        android:text=""
-        android:textColor="@color/calc_white"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/darkmodecat_bg"
+        android:contentDescription="@null" />
+
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:paddingTop="8dp"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="6sp"
-        app:autoSizeMaxTextSize="64sp"
-        app:autoSizeStepGranularity="1sp" />
+        android:paddingTop="16dp"
+        android:paddingBottom="42dp"
+        android:orientation="vertical">
 
-    <!-- DISPLAY: = 25 -->
-    <TextView
-        android:id="@+id/tvDisplay"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="bottom|end"
-        android:maxLines="1"
-        android:text="0"
-        android:textColor="@color/calc_light_gray"
-        android:paddingBottom="16dp"
-        android:paddingEnd="16dp"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="6sp"
-        app:autoSizeMaxTextSize="28sp"
-        app:autoSizeStepGranularity="1sp" />
+        <!-- THEME TOGGLE: pindutin para magpalit ng dark/light mode -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:paddingTop="12dp">
 
-    <!-- ROW 1: AC, +/-, %, ÷ -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="12dp">
 
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/btnThemeToggle"
+                android:layout_width="wrap_content"
+                android:layout_height="53dp"
+                android:layout_margin="8dp" />
+
+        </LinearLayout>
+
+        <!-- EXPRESSION: 5x5 -->
         <TextView
-            android:id="@+id/btnClear"
-            style="@style/CalcButtonLightGray"
-            android:text="AC" />
-
-        <TextView
-            android:id="@+id/btnBackspace"
-            style="@style/CalcButtonLightGray"
-            android:text="⌫" />
-
-        <TextView
-            android:id="@+id/btnPercent"
-            style="@style/CalcButtonLightGray"
-            android:text="%" />
-
-        <TextView
-            android:id="@+id/btnDivide"
-            style="@style/CalcButtonOrange"
-            android:text="÷" />
-    </LinearLayout>
-
-    <!-- ROW 2: 7, 8, 9, × -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="12dp">
-
-        <!-- BAGO: Gumamit ng selector at tinanggal ang style para magkaroon ng paw effect -->
-        <TextView
-            android:id="@+id/btn7"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
+            android:id="@+id/tvExpression"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_marginEnd="12dp"
-            android:gravity="center"
-            android:text="7"
+            android:gravity="bottom|end"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:text=""
             android:textColor="@color/calc_white"
-            android:textSize="28sp"
-            android:background="@drawable/btn_paw_selector" />
+            android:paddingEnd="16dp"
+            android:paddingTop="8dp"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="6sp"
+            app:autoSizeMaxTextSize="64sp"
+            app:autoSizeStepGranularity="1sp" />
 
+        <!-- DISPLAY: = 25 -->
         <TextView
-            android:id="@+id/btn8"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
+            android:id="@+id/tvDisplay"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_marginEnd="12dp"
-            android:gravity="center"
-            android:text="8"
-            android:textColor="@color/calc_white"
-            android:textSize="28sp"
-            android:background="@drawable/btn_paw_selector" />
-
-        <TextView
-            android:id="@+id/btn9"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_weight="1"
-            android:layout_marginEnd="12dp"
-            android:gravity="center"
-            android:text="9"
-            android:textColor="@color/calc_white"
-            android:textSize="28sp"
-            android:background="@drawable/btn_paw_selector" />
-
-        <TextView
-            android:id="@+id/btnMultiply"
-            style="@style/CalcButtonOrange"
-            android:text="×" />
-    </LinearLayout>
-
-    <!-- ROW 3: 4, 5, 6, − -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="12dp">
-
-        <TextView
-            android:id="@+id/btn4"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_weight="1"
-            android:layout_marginEnd="12dp"
-            android:gravity="center"
-            android:text="4"
-            android:textColor="@color/calc_white"
-            android:textSize="28sp"
-            android:background="@drawable/btn_paw_selector" />
-
-        <TextView
-            android:id="@+id/btn5"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_weight="1"
-            android:layout_marginEnd="12dp"
-            android:gravity="center"
-            android:text="5"
-            android:textColor="@color/calc_white"
-            android:textSize="28sp"
-            android:background="@drawable/btn_paw_selector" />
-
-        <TextView
-            android:id="@+id/btn6"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_weight="1"
-            android:layout_marginEnd="12dp"
-            android:gravity="center"
-            android:text="6"
-            android:textColor="@color/calc_white"
-            android:textSize="28sp"
-            android:background="@drawable/btn_paw_selector" />
-
-        <TextView
-            android:id="@+id/btnSubtract"
-            style="@style/CalcButtonOrange"
-            android:text="−" />
-    </LinearLayout>
-
-    <!-- ROW 4: 1, 2, 3, + -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="12dp">
-
-        <TextView
-            android:id="@+id/btn1"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_weight="1"
-            android:layout_marginEnd="12dp"
-            android:gravity="center"
-            android:text="1"
-            android:textColor="@color/calc_white"
-            android:textSize="28sp"
-            android:background="@drawable/btn_paw_selector" />
-
-        <TextView
-            android:id="@+id/btn2"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_weight="1"
-            android:layout_marginEnd="12dp"
-            android:gravity="center"
-            android:text="2"
-            android:textColor="@color/calc_white"
-            android:textSize="28sp"
-            android:background="@drawable/btn_paw_selector" />
-
-        <TextView
-            android:id="@+id/btn3"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_weight="1"
-            android:layout_marginEnd="12dp"
-            android:gravity="center"
-            android:text="3"
-            android:textColor="@color/calc_white"
-            android:textSize="28sp"
-            android:background="@drawable/btn_paw_selector" />
-
-        <TextView
-            android:id="@+id/btnAdd"
-            style="@style/CalcButtonOrange"
-            android:text="+" />
-    </LinearLayout>
-
-    <!-- ROW 5: 0 (mahaba), ., = -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/btn0"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_weight="2"
-            android:layout_marginEnd="12dp"
-            android:background="@drawable/btn_paw_selector"
-            android:gravity="center_vertical|start"
-            android:paddingStart="26dp"
+            android:gravity="bottom|end"
+            android:maxLines="1"
             android:text="0"
-            android:textColor="@color/calc_white"
-            android:textSize="28sp" />
+            android:textColor="@color/calc_light_gray"
+            android:paddingBottom="16dp"
+            android:paddingEnd="16dp"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="6sp"
+            app:autoSizeMaxTextSize="28sp"
+            app:autoSizeStepGranularity="1sp" />
 
-        <!-- Pinalitan din natin ang Dot para magkaroon ng paw effect -->
-        <TextView
-            android:id="@+id/btnDot"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_weight="1"
-            android:layout_marginEnd="12dp"
-            android:gravity="center"
-            android:text="."
-            android:textColor="@color/calc_white"
-            android:textSize="28sp"
-            android:background="@drawable/btn_paw_selector" />
+        <!-- ROW 1: AC, +/-, %, ÷ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp">
 
-        <TextView
-            android:id="@+id/btnEquals"
-            style="@style/CalcButtonOrange"
-            android:text="=" />
+            <TextView
+                android:id="@+id/btnClear"
+                style="@style/CalcButtonLightGray"
+                android:text="AC" />
+
+            <TextView
+                android:id="@+id/btnBackspace"
+                style="@style/CalcButtonLightGray"
+                android:text="⌫" />
+
+            <TextView
+                android:id="@+id/btnPercent"
+                style="@style/CalcButtonLightGray"
+                android:text="%" />
+
+            <TextView
+                android:id="@+id/btnDivide"
+                style="@style/CalcButtonOrange"
+                android:text="÷" />
+        </LinearLayout>
+
+        <!-- ROW 2: 7, 8, 9, × -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:id="@+id/btn7"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="12dp"
+                android:gravity="center"
+                android:text="7"
+                android:textColor="@color/calc_white"
+                android:textSize="28sp"
+                android:background="@drawable/btn_paw_selector" />
+
+            <TextView
+                android:id="@+id/btn8"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="12dp"
+                android:gravity="center"
+                android:text="8"
+                android:textColor="@color/calc_white"
+                android:textSize="28sp"
+                android:background="@drawable/btn_paw_selector" />
+
+            <TextView
+                android:id="@+id/btn9"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="12dp"
+                android:gravity="center"
+                android:text="9"
+                android:textColor="@color/calc_white"
+                android:textSize="28sp"
+                android:background="@drawable/btn_paw_selector" />
+
+            <TextView
+                android:id="@+id/btnMultiply"
+                style="@style/CalcButtonOrange"
+                android:text="×" />
+        </LinearLayout>
+
+        <!-- ROW 3: 4, 5, 6, − -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:id="@+id/btn4"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="12dp"
+                android:gravity="center"
+                android:text="4"
+                android:textColor="@color/calc_white"
+                android:textSize="28sp"
+                android:background="@drawable/btn_paw_selector" />
+
+            <TextView
+                android:id="@+id/btn5"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="12dp"
+                android:gravity="center"
+                android:text="5"
+                android:textColor="@color/calc_white"
+                android:textSize="28sp"
+                android:background="@drawable/btn_paw_selector" />
+
+            <TextView
+                android:id="@+id/btn6"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="12dp"
+                android:gravity="center"
+                android:text="6"
+                android:textColor="@color/calc_white"
+                android:textSize="28sp"
+                android:background="@drawable/btn_paw_selector" />
+
+            <TextView
+                android:id="@+id/btnSubtract"
+                style="@style/CalcButtonOrange"
+                android:text="−" />
+        </LinearLayout>
+
+        <!-- ROW 4: 1, 2, 3, + -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:id="@+id/btn1"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="12dp"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@color/calc_white"
+                android:textSize="28sp"
+                android:background="@drawable/btn_paw_selector" />
+
+            <TextView
+                android:id="@+id/btn2"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="12dp"
+                android:gravity="center"
+                android:text="2"
+                android:textColor="@color/calc_white"
+                android:textSize="28sp"
+                android:background="@drawable/btn_paw_selector" />
+
+            <TextView
+                android:id="@+id/btn3"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="12dp"
+                android:gravity="center"
+                android:text="3"
+                android:textColor="@color/calc_white"
+                android:textSize="28sp"
+                android:background="@drawable/btn_paw_selector" />
+
+            <TextView
+                android:id="@+id/btnAdd"
+                style="@style/CalcButtonOrange"
+                android:text="+" />
+        </LinearLayout>
+
+        <!-- ROW 5: 0 (mahaba), ., = -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btn0"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="2"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/btn_paw_selector"
+                android:gravity="center_vertical|start"
+                android:paddingStart="26dp"
+                android:text="0"
+                android:textColor="@color/calc_white"
+                android:textSize="28sp" />
+
+            <!-- Pinalitan din natin ang Dot para magkaroon ng paw effect -->
+            <TextView
+                android:id="@+id/btnDot"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="12dp"
+                android:gravity="center"
+                android:text="."
+                android:textColor="@color/calc_white"
+                android:textSize="28sp"
+                android:background="@drawable/btn_paw_selector" />
+
+            <TextView
+                android:id="@+id/btnEquals"
+                style="@style/CalcButtonOrange"
+                android:text="=" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</FrameLayout>

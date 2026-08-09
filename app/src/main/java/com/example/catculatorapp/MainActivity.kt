@@ -1,8 +1,11 @@
 package com.example.catculatorapp
 
+import android.content.Context
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.example.catculatorapp.databinding.ActivityMainBinding
 import java.text.NumberFormat
 import java.util.Locale
@@ -19,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private var lockedExpression = ""
 
     private var mediaPlayer: MediaPlayer? = null
+    private var isDarkMode = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +35,54 @@ class MainActivity : AppCompatActivity() {
 
         mediaPlayer = MediaPlayer.create(this, R.raw.doorbellcat)
 
+        // BAGO: SharedPreferences - natatandaan nito yung huling
+        // ginamit mong mode, kahit i-close mo yung app
+        val prefs = getSharedPreferences("calc_prefs", Context.MODE_PRIVATE)
+        isDarkMode = prefs.getBoolean("is_dark_mode", true)
+        applyTheme()
+
+        binding.btnThemeToggle.isChecked = isDarkMode
+        binding.btnThemeToggle.setOnCheckedChangeListener { _, isChecked ->
+            isDarkMode = isChecked
+            prefs.edit().putBoolean("is_dark_mode", isDarkMode).apply()
+            applyTheme()
+        }
+
         setupButtonClicks()
+    }
+
+    // BAGO: ito ang naglalagay ng tamang kulay sa lahat ng views
+    // depende kung dark o light mode ang current setting
+    private fun applyTheme() {
+        val numberButtons = listOf(
+            binding.btn0, binding.btn1, binding.btn2, binding.btn3, binding.btn4,
+            binding.btn5, binding.btn6, binding.btn7, binding.btn8, binding.btn9,
+            binding.btnDot
+        )
+
+        if (isDarkMode) {
+            binding.ivBackground.setImageResource(R.drawable.darkmodecat_bg)
+            numberButtons.forEach { setButtonAppearance(it, R.drawable.btn_paw_selector, R.color.calc_white) }
+            binding.tvExpression.setTextColor(ContextCompat.getColor(this, R.color.calc_white))
+            binding.tvDisplay.setTextColor(ContextCompat.getColor(this, R.color.calc_light_gray))
+        } else {
+            binding.ivBackground.setImageResource(R.drawable.lightmodecat_bg)
+            numberButtons.forEach { setButtonAppearance(it, R.drawable.btn_paw_selector_light, R.color.calc_text_dark) }
+            binding.tvExpression.setTextColor(ContextCompat.getColor(this, R.color.calc_text_dark))
+            binding.tvDisplay.setTextColor(ContextCompat.getColor(this, R.color.calc_text_secondary_light))
+        }
+
+        // Sync switch state without triggering listener recursively
+        if (binding.btnThemeToggle.isChecked != isDarkMode) {
+            binding.btnThemeToggle.isChecked = isDarkMode
+        }
+    }
+
+    // BAGO: helper para hindi na natin i-uulit ang parehong 2 linya
+    // (set background + set text color) sa bawat button paulit-ulit
+    private fun setButtonAppearance(view: TextView, backgroundDrawableRes: Int, textColorRes: Int) {
+        view.setBackgroundResource(backgroundDrawableRes)
+        view.setTextColor(ContextCompat.getColor(this, textColorRes))
     }
 
 

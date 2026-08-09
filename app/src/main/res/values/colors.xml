@@ -5,4 +5,10 @@
     <color name="calc_light_gray">#A5A5A5</color>
     <color name="calc_orange">#FF9F0A</color>
     <color name="calc_white">#FFFFFF</color>
+
+    <!-- LIGHT MODE colors -->
+    <color name="calc_bg_light">#F2F2F2</color>
+    <color name="calc_button_number_light">#E4E4E4</color>
+    <color name="calc_text_dark">#1C1C1C</color>
+    <color name="calc_text_secondary_light">#6E6E6E</color>
 </resources>
