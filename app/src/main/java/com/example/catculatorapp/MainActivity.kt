@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     private var lockedExpression = ""
 
     private var mediaPlayer: MediaPlayer? = null
+    private var mediaPlayerClear: MediaPlayer? = null
     private var isDarkMode = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
 
 
         mediaPlayer = MediaPlayer.create(this, R.raw.doorbellcat)
+        mediaPlayerClear = MediaPlayer.create(this, R.raw.ac_meow)
 
         // BAGO: SharedPreferences - natatandaan nito yung huling
         // ginamit mong mode, kahit i-close mo yung app
@@ -86,7 +88,7 @@ class MainActivity : AppCompatActivity() {
         view.setTextColor(ContextCompat.getColor(this, textColorRes))
     }
 
-    // ============ BAGO: BUTTON PRESS ANIMATION ============
+    // ============ BUTTON PRESS ANIMATION ============
 
     // Ito ang gumagawa ng "paw bounce" - paliitin papuntang 95%,
     // tapos pabalikin sa 100%. Tinatawag natin ito sa bawat button click.
@@ -105,13 +107,12 @@ class MainActivity : AppCompatActivity() {
             .start()
     }
 
-    // BAGO: sinama natin dito ang animation + meow sound + yung
-    // aktwal na aksyon (halimbawa onNumberClick) - iisang function
-    // na lang ang tinatawag natin sa bawat button, sa halip na
-    // isulat paulit-ulit ang parehong 3 linya sa 18 buttons
-    private fun onButtonTap(view: View, action: () -> Unit) {
+    // BAGO: may 3rd parameter na "sound" - default ay mediaPlayer,
+    // pero pwede nating i-override kapag kailangan ng ibang tunog
+    // (tulad ng AC button)
+    private fun onButtonTap(view: View, sound: MediaPlayer? = mediaPlayer, action: () -> Unit) {
         animatePress(view)
-        playMeow()
+        playSound(sound)
         action()
     }
 
@@ -120,17 +121,21 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         mediaPlayer?.release()
         mediaPlayer = null
+        mediaPlayerClear?.release()
+        mediaPlayerClear = null
     }
 
-    private fun playMeow() {
+    // BAGO: pinalitan ang dating playMeow() - tumatanggap na ngayon
+    // ng "kung anong sound player" ang gagamitin, para reusable
+    // ito para sa doorbellcat AT ac_meow
+    private fun playSound(player: MediaPlayer?) {
         try {
-            val mp = mediaPlayer ?: return
+            val mp = player ?: return
             if (mp.isPlaying) {
                 mp.seekTo(0)
             }
             mp.start()
         } catch (e: Exception) {
-
             e.printStackTrace()
         }
     }
@@ -154,7 +159,10 @@ class MainActivity : AppCompatActivity() {
         binding.btnSubtract.setOnClickListener { onButtonTap(it) { onOperatorClick("−") } }
         binding.btnAdd.setOnClickListener { onButtonTap(it) { onOperatorClick("+") } }
 
-        binding.btnClear.setOnClickListener { onButtonTap(it) { onClearClick() } }
+        // BAGO: AC button gumagamit na ngayon ng mediaPlayerClear
+        // sa halip na yung default na mediaPlayer
+        binding.btnClear.setOnClickListener { onButtonTap(it, mediaPlayerClear) { onClearClick() } }
+
         binding.btnBackspace.setOnClickListener { onButtonTap(it) { onBackspaceClick() } }
         binding.btnPercent.setOnClickListener { onButtonTap(it) { onPercentClick() } }
         binding.btnEquals.setOnClickListener { onButtonTap(it) { onEqualsClick() } }
