@@ -22,7 +22,6 @@
         android:paddingBottom="42dp"
         android:orientation="vertical">
 
-        <!-- THEME TOGGLE: pindutin para magpalit ng dark/light mode -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -64,6 +63,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="bottom|end"
+            android:maxLength="20"
             android:maxLines="1"
             android:text="0"
             android:textColor="@color/calc_light_gray"
