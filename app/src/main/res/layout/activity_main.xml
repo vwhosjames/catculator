@@ -57,6 +57,9 @@
             app:autoSizeStepGranularity="1sp" />
 
         <!-- DISPLAY: = 25 -->
+
+        <!-- ROW 1: AC, +/-, %, ÷ -->
+
         <TextView
             android:id="@+id/tvDisplay"
             android:layout_width="match_parent"
@@ -65,16 +68,15 @@
             android:gravity="bottom|end"
             android:maxLength="20"
             android:maxLines="1"
+            android:paddingEnd="16dp"
+            android:paddingBottom="16dp"
             android:text="0"
             android:textColor="@color/calc_light_gray"
-            android:paddingBottom="16dp"
-            android:paddingEnd="16dp"
-            app:autoSizeTextType="uniform"
-            app:autoSizeMinTextSize="6sp"
             app:autoSizeMaxTextSize="28sp"
-            app:autoSizeStepGranularity="1sp" />
+            app:autoSizeMinTextSize="6sp"
+            app:autoSizeStepGranularity="1sp"
+            app:autoSizeTextType="uniform" />
 
-        <!-- ROW 1: AC, +/-, %, ÷ -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -3,6 +3,7 @@ package com.example.catculatorapp
 import android.content.Context
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -85,6 +86,35 @@ class MainActivity : AppCompatActivity() {
         view.setTextColor(ContextCompat.getColor(this, textColorRes))
     }
 
+    // ============ BAGO: BUTTON PRESS ANIMATION ============
+
+    // Ito ang gumagawa ng "paw bounce" - paliitin papuntang 95%,
+    // tapos pabalikin sa 100%. Tinatawag natin ito sa bawat button click.
+    private fun animatePress(view: View) {
+        view.animate()
+            .scaleX(0.95f)
+            .scaleY(0.95f)
+            .setDuration(80)
+            .withEndAction {
+                view.animate()
+                    .scaleX(1f)
+                    .scaleY(1f)
+                    .setDuration(80)
+                    .start()
+            }
+            .start()
+    }
+
+    // BAGO: sinama natin dito ang animation + meow sound + yung
+    // aktwal na aksyon (halimbawa onNumberClick) - iisang function
+    // na lang ang tinatawag natin sa bawat button, sa halip na
+    // isulat paulit-ulit ang parehong 3 linya sa 18 buttons
+    private fun onButtonTap(view: View, action: () -> Unit) {
+        animatePress(view)
+        playMeow()
+        action()
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
@@ -107,86 +137,27 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupButtonClicks() {
 
-        binding.btn0.setOnClickListener {
-            playMeow()
-            onNumberClick("0")
-        }
-        binding.btn1.setOnClickListener {
-            playMeow()
-            onNumberClick("1")
-        }
-        binding.btn2.setOnClickListener {
-            playMeow()
-            onNumberClick("2")
-        }
-        binding.btn3.setOnClickListener {
-            playMeow()
-            onNumberClick("3")
-        }
-        binding.btn4.setOnClickListener {
-            playMeow()
-            onNumberClick("4")
-        }
-        binding.btn5.setOnClickListener {
-            playMeow()
-            onNumberClick("5")
-        }
-        binding.btn6.setOnClickListener {
-            playMeow()
-            onNumberClick("6")
-        }
-        binding.btn7.setOnClickListener {
-            playMeow()
-            onNumberClick("7")
-        }
-        binding.btn8.setOnClickListener {
-            playMeow()
-            onNumberClick("8")
-        }
-        binding.btn9.setOnClickListener {
-            playMeow()
-            onNumberClick("9")
-        }
-        binding.btnDot.setOnClickListener {
-            playMeow()
-            onDotClick()
-        }
+        binding.btn0.setOnClickListener { onButtonTap(it) { onNumberClick("0") } }
+        binding.btn1.setOnClickListener { onButtonTap(it) { onNumberClick("1") } }
+        binding.btn2.setOnClickListener { onButtonTap(it) { onNumberClick("2") } }
+        binding.btn3.setOnClickListener { onButtonTap(it) { onNumberClick("3") } }
+        binding.btn4.setOnClickListener { onButtonTap(it) { onNumberClick("4") } }
+        binding.btn5.setOnClickListener { onButtonTap(it) { onNumberClick("5") } }
+        binding.btn6.setOnClickListener { onButtonTap(it) { onNumberClick("6") } }
+        binding.btn7.setOnClickListener { onButtonTap(it) { onNumberClick("7") } }
+        binding.btn8.setOnClickListener { onButtonTap(it) { onNumberClick("8") } }
+        binding.btn9.setOnClickListener { onButtonTap(it) { onNumberClick("9") } }
+        binding.btnDot.setOnClickListener { onButtonTap(it) { onDotClick() } }
 
+        binding.btnDivide.setOnClickListener { onButtonTap(it) { onOperatorClick("÷") } }
+        binding.btnMultiply.setOnClickListener { onButtonTap(it) { onOperatorClick("×") } }
+        binding.btnSubtract.setOnClickListener { onButtonTap(it) { onOperatorClick("−") } }
+        binding.btnAdd.setOnClickListener { onButtonTap(it) { onOperatorClick("+") } }
 
-        binding.btnDivide.setOnClickListener {
-            playMeow()
-            onOperatorClick("÷")
-        }
-        binding.btnMultiply.setOnClickListener {
-            playMeow()
-            onOperatorClick("×")
-        }
-        binding.btnSubtract.setOnClickListener {
-            playMeow()
-            onOperatorClick("−")
-        }
-        binding.btnAdd.setOnClickListener {
-            playMeow()
-            onOperatorClick("+")
-        }
-
-
-        binding.btnClear.setOnClickListener {
-            playMeow()
-            onClearClick()
-        }
-        binding.btnBackspace.setOnClickListener {
-            playMeow()
-            onBackspaceClick()
-        }
-        binding.btnPercent.setOnClickListener {
-            playMeow()
-            onPercentClick()
-        }
-        binding.btnEquals.setOnClickListener {
-            playMeow()
-            onEqualsClick()
-        }
+        binding.btnClear.setOnClickListener { onButtonTap(it) { onClearClick() } }
+        binding.btnBackspace.setOnClickListener { onButtonTap(it) { onBackspaceClick() } }
+        binding.btnPercent.setOnClickListener { onButtonTap(it) { onPercentClick() } }
+        binding.btnEquals.setOnClickListener { onButtonTap(it) { onEqualsClick() } }
     }
 
     private fun onNumberClick(number: String) {
