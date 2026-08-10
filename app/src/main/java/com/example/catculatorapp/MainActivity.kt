@@ -27,6 +27,8 @@ class MainActivity : AppCompatActivity() {
     private var mediaPlayerBackspace: MediaPlayer? = null
 
     private var mediaPlayerError: MediaPlayer? = null
+
+    private var mediaPlayerEqualbtn: MediaPlayer? = null
     private var isDarkMode = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         mediaPlayerClear = MediaPlayer.create(this, R.raw.ac_meow)
         mediaPlayerBackspace = MediaPlayer.create(this, R.raw.fart)
         mediaPlayerError = MediaPlayer.create(this, R.raw.error)
+        mediaPlayerEqualbtn = MediaPlayer.create(this, R.raw.bonecrack)
 
 
         // BAGO: SharedPreferences - natatandaan nito yung huling
@@ -175,7 +178,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnBackspace.setOnClickListener { onButtonTap(it, mediaPlayerBackspace) { onBackspaceClick() } }
         binding.btnPercent.setOnClickListener { onButtonTap(it) { onPercentClick() } }
-        binding.btnEquals.setOnClickListener { onButtonTap(it) { onEqualsClick() } }
+        binding.btnEquals.setOnClickListener { onButtonTap(it, sound = null) { onEqualsClick() } }
     }
 
     private fun onNumberClick(number: String) {
