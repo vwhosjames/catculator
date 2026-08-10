@@ -131,6 +131,8 @@ class MainActivity : AppCompatActivity() {
         mediaPlayerClear = null
         mediaPlayerBackspace?.release()
         mediaPlayerBackspace = null
+        mediaPlayerError?.release()
+        mediaPlayerError = null
     }
 
     // BAGO: pinalitan ang dating playMeow() - tumatanggap na ngayon
@@ -257,7 +259,7 @@ class MainActivity : AppCompatActivity() {
         val result = calculate(previousValue, currentOperator, currentValue)
 
         if (result == null) {
-
+            playSound(mediaPlayerError)
             binding.tvExpression.text = "Error"
             binding.tvDisplay.text = ""
             currentInput = ""
