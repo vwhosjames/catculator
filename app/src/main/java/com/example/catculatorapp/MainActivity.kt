@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private var mediaPlayer: MediaPlayer? = null
     private var mediaPlayerClear: MediaPlayer? = null
+    private var mediaPlayerBackspace: MediaPlayer? = null
     private var isDarkMode = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +38,8 @@ class MainActivity : AppCompatActivity() {
 
         mediaPlayer = MediaPlayer.create(this, R.raw.doorbellcat)
         mediaPlayerClear = MediaPlayer.create(this, R.raw.ac_meow)
+        mediaPlayerBackspace = MediaPlayer.create(this, R.raw.fart)
+
 
         // BAGO: SharedPreferences - natatandaan nito yung huling
         // ginamit mong mode, kahit i-close mo yung app
@@ -123,6 +126,8 @@ class MainActivity : AppCompatActivity() {
         mediaPlayer = null
         mediaPlayerClear?.release()
         mediaPlayerClear = null
+        mediaPlayerBackspace?.release()
+        mediaPlayerBackspace = null
     }
 
     // BAGO: pinalitan ang dating playMeow() - tumatanggap na ngayon
@@ -163,7 +168,7 @@ class MainActivity : AppCompatActivity() {
         // sa halip na yung default na mediaPlayer
         binding.btnClear.setOnClickListener { onButtonTap(it, mediaPlayerClear) { onClearClick() } }
 
-        binding.btnBackspace.setOnClickListener { onButtonTap(it) { onBackspaceClick() } }
+        binding.btnBackspace.setOnClickListener { onButtonTap(it, mediaPlayerBackspace) { onBackspaceClick() } }
         binding.btnPercent.setOnClickListener { onButtonTap(it) { onPercentClick() } }
         binding.btnEquals.setOnClickListener { onButtonTap(it) { onEqualsClick() } }
     }
@@ -249,6 +254,7 @@ class MainActivity : AppCompatActivity() {
         val result = calculate(previousValue, currentOperator, currentValue)
 
         if (result == null) {
+
             binding.tvExpression.text = "Error"
             binding.tvDisplay.text = ""
             currentInput = ""
