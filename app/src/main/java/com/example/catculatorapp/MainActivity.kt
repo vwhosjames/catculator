@@ -136,6 +136,8 @@ class MainActivity : AppCompatActivity() {
         mediaPlayerBackspace = null
         mediaPlayerError?.release()
         mediaPlayerError = null
+        mediaPlayerEqualbtn?.release()
+        mediaPlayerEqualbtn = null
     }
 
     // BAGO: pinalitan ang dating playMeow() - tumatanggap na ngayon
