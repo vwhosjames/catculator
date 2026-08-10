@@ -25,6 +25,8 @@ class MainActivity : AppCompatActivity() {
     private var mediaPlayer: MediaPlayer? = null
     private var mediaPlayerClear: MediaPlayer? = null
     private var mediaPlayerBackspace: MediaPlayer? = null
+
+    private var mediaPlayerError: MediaPlayer? = null
     private var isDarkMode = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         mediaPlayer = MediaPlayer.create(this, R.raw.doorbellcat)
         mediaPlayerClear = MediaPlayer.create(this, R.raw.ac_meow)
         mediaPlayerBackspace = MediaPlayer.create(this, R.raw.fart)
+        mediaPlayerError = MediaPlayer.create(this, R.raw.error)
 
 
         // BAGO: SharedPreferences - natatandaan nito yung huling
