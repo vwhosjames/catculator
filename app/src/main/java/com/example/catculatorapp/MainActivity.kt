@@ -272,7 +272,7 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-
+        playSound(mediaPlayerEqualbtn)
         binding.tvExpression.text = lockedExpression + formatResult(currentValue)
         binding.tvDisplay.text = "= " + formatResult(result)
 
