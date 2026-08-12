@@ -204,11 +204,47 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onOperatorClick(operator: String) {
-        if (currentInput.isNotEmpty()) {
+        // Ignore if no input and no operator yet
+        if (currentInput.isEmpty() && currentOperator.isEmpty()) return
+
+        // 1️⃣ We have a pending operation and a second operand → compute intermediate result
+        if (currentOperator.isNotEmpty() && currentInput.isNotEmpty()) {
+            val secondValue = currentInput.toDouble()
+            val result = calculate(previousValue, currentOperator, secondValue)
+
+            if (result == null) {
+                // Error (e.g., division by zero)
+                playSound(mediaPlayerError)   // if you have an error sound
+                binding.tvExpression.text = "Error"
+                binding.tvDisplay.text = ""
+                currentInput = ""
+                currentOperator = ""
+                lockedExpression = ""
+                previousValue = 0.0
+                isNewInput = true
+                return
+            }
+
+            // Build full expression: e.g., "5×" + "5" + "×" → "5×5×"
+            lockedExpression = lockedExpression + formatResult(secondValue) + operator
+            // The result becomes the new left operand for the next operation
+            previousValue = result
+
+            // 2️⃣ Operator pressed right after another operator → replace the last operator
+        } else if (currentOperator.isNotEmpty() && currentInput.isEmpty()) {
+            // Remove the old operator from the end (all operators are one character)
+            if (lockedExpression.isNotEmpty()) {
+                lockedExpression = lockedExpression.dropLast(1)
+            }
+            lockedExpression += operator
+
+            // 3️⃣ Starting a fresh expression
+        } else {
             previousValue = currentInput.toDouble()
+            lockedExpression = formatResult(previousValue) + operator
         }
+
         currentOperator = operator
-        lockedExpression = formatResult(previousValue) + operator
         currentInput = ""
         isNewInput = true
         refreshDisplays()
