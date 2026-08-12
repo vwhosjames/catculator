@@ -45,7 +45,6 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="bottom|end"
-            android:maxLength="20"
             android:maxLines="1"
             android:text=""
             android:textColor="@color/calc_white"
