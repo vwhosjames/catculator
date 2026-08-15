@@ -45,16 +45,16 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="bottom|end"
-            android:maxLength="23"
-            android:maxLines="3"
             android:text=""
             android:textColor="@color/calc_white"
             android:paddingEnd="16dp"
             android:paddingTop="8dp"
             app:autoSizeTextType="uniform"
-            app:autoSizeMinTextSize="6sp"
+            app:autoSizeMinTextSize="16sp"
             app:autoSizeMaxTextSize="64sp"
-            app:autoSizeStepGranularity="1sp" />
+            app:autoSizeStepGranularity="1sp"
+            android:maxLines="1"
+            android:maxLength="30" />
 
         <!-- DISPLAY: = 25 -->
 
